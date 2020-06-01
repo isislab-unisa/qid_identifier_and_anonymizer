@@ -3,7 +3,7 @@
 It contains the results for the anonymization approach provided in the src directory the datasets published in https://github.com/isislab-unisa/driver-license-datasets.
 The best results are provided by a local recording (only affecting rows related to the singletons exposed by the (year_of_birth, sex, municipality) QID) and the generalization of the municipality (and sex) column(s).
 |                                 |                 | Valle Aosta | Umbria | Molise |
-|--------------------------------:|-----------------|:-----------:|:------:|:------:|
+|--------------------------------:|-----------------|-----------:|------:|------:|
 |                        original | Singleton #     |        1684 |    869 |   2569 |
 |                                 | Singleton %     |           2 |      0 |      1 |
 |                                 | Size            |       87642 | 597492 | 198524 |
