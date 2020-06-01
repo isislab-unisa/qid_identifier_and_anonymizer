@@ -40,4 +40,4 @@ for index, row in output.iterrows():
   
   i=i+1
 
-data_df.to_csv(file_name+"GenereSingleton.csv", index=False)
+data_df.to_csv(file_name+"GenderSingleton.csv", index=False)
