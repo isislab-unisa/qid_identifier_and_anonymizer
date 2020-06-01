@@ -11,12 +11,12 @@ else:
   file_name = os.path.basename(file_path).split(".")[0]
 dataProvincia=pd.read_csv("C:\\Users\\matte\\Downloads\\PiemonteComuni.csv", delimiter=",", encoding="ISO-8859-1")
 columns=os.path.splitext("sesso,anno_nascita,comune_residenza.csv")[0].split(",")
-#print(columns)
+
 colnames=[]
 for name in columns:
  colnames.append(name)
 colnames.append("n")
-#print (colnames)
+
 output=pd.read_csv("sesso,anno_nascita,comune_residenza.csv", header=0, names=colnames, delimiter=",",  dtype={"newId":int ,"anno_nascita":object,"comune_residenza": object, "sesso":object})
 
 
@@ -25,8 +25,7 @@ data_df=pd.read_csv(file_path , dtype={"newId":int ,"anno_nascita":object,"comun
 i=0
 
 for index, row in output.iterrows():
-  #if i%100==0:
-  #  print(i)
+ 
   anno = row["anno_nascita"]
   comune = row["comune_residenza"]
   sesso = row["sesso"]
@@ -39,4 +38,4 @@ for index, row in output.iterrows():
   
   i=i+1
 
-data_df.to_csv(file_name+"ProvinceSingleton.csv", index=False)
+data_df.to_csv(file_name+"ProvincesSingleton.csv", index=False)
