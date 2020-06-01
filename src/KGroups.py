@@ -14,22 +14,16 @@ columns_names=["newId","anno_nascita", "comune_residenza", "sesso"]
 columnIndex=data["newId"]
 newData=pd.DataFrame(columns= columns_names,index=columnIndex)
 newData=data.sort_values("anno_nascita")
-#print(newData)
+
 newData.dropna(inplace=True)
 columnDate=newData["anno_nascita"].to_numpy()
 newColumnDate = list(set(columnDate))
-#print(newColumnDate)
-#print (columnDate)
-#print(len(data))
+
 n=4
 arrayNewCentroids=[]
-'''newColumnDate=list(zip(*[iter(columnDate)]*k))
-print(newColumnDate)
-print(len(newColumnDate))
-print(len(columnDate))
-'''
+
 newColumnDate = [newColumnDate[i * n:(i + 1) * n] for i in range((len(newColumnDate) + n - 1) // n )]  
-#print ( "Gruppi da ", n , newColumnDate) 
+
 
 for array in newColumnDate:
 	middle = float(len(array))/2
@@ -37,12 +31,11 @@ for array in newColumnDate:
 			arrayNewCentroids.append(array[int(middle - .5)])
 	else:
 			arrayNewCentroids.append((array[int(middle)]))
-#print(" Centroidi : ", arrayNewCentroids)
-#NewColumn=columnDate.astype(int)
+
 NewColumn=columnDate.tolist()
 NewColumn = [ int(x) for x in NewColumn ]
 arrayNewCentroids= [ int(x) for x in arrayNewCentroids]
-#print(type(NewColumn[1]))
+
 i=0
 d=0
 while i < len(columnDate):
@@ -54,31 +47,10 @@ while i < len(columnDate):
 			break
 		d=d+1
 	i=i+1
-#print(NewColumn)
-#print(len(NewColumn))
-#print(len(columnDate))
 
-
-
-
-'''
-i=0
-count=-1
-for array in newColumnDate:
-	count=count+1
-	i=0
-	while i<len(array):
-		array[i]=int(arrayNewCentroids[count])
-		i=i+1
-print(newColumnDate)
-
-newColumnDate=np.concatenate(newColumnDate)
-print(newColumnDate)
-newColumnDate=newColumnDate.astype(int)
-'''
 newData["anno_nascita"]=NewColumn
 
-newData.to_csv(file_name+"Centroide.csv", index=False)
+newData.to_csv(file_name+"Centroid.csv", index=False)
 
 
 
