@@ -14,4 +14,4 @@ data=pd.read_csv(file_path, delimiter=",", dtype={"anno_nascita":object,"comune_
 
 data["sesso"]=" "
 
-data.to_csv(file_name+"GenereAll.csv", index=False)
+data.to_csv(file_name+"GenderAll.csv", index=False)
