@@ -14,4 +14,4 @@ dataProvincia=pd.read_csv("C:\\Users\\matte\\Downloads\\PiemonteComuni.csv",deli
 merged = data.merge(dataProvincia, on='comune_residenza')
 merged = merged.drop(columns=['comune_residenza'])
 merged = merged.rename(columns={"provincia": "comune_residenza"})
-merged.to_csv(file_name+"ProvinceAll.csv", index=False)
+merged.to_csv(file_name+"ProvincesAll.csv", index=False)
