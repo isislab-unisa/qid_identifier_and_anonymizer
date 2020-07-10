@@ -41,6 +41,6 @@ class BestFinder():
 		df.to_csv('RankingSingletons.csv', index=False)
 		df = df.sort_values("Modified Rows")
 		df.to_csv("RankingModifiedRows.csv", index=False)
-BestFinder.finder("C:\\Users\\matte\\Desktop\\Framework2\\resultsQuality", "C:\\Users\\matte\\Desktop\\Framework2\\results")
+
 
 
