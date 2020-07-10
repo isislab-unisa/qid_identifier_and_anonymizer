@@ -162,3 +162,5 @@ DropNewId.dropNewId("C:\\Users\\matte\\Desktop\\Framework2\\dataset_newIndexGend
 PrivacyChecker.privacychecker("C:\\Users\\matte\\Desktop\\Framework2\\dataset_newIndexGenderAllProvinceAllRangeNoNewId.csv")
 DropNewId.dropNewId("C:\\Users\\matte\\Desktop\\Framework2\\dataset_newIndexGenderAllProvinceAllCentroid.csv")
 PrivacyChecker.privacychecker("C:\\Users\\matte\\Desktop\\Framework2\\dataset_newIndexGenderAllProvinceAllCentroidNoNewId.csv")
+
+BestFinder.finder("C:\\Users\\matte\\Desktop\\Framework2\\resultsQuality", "C:\\Users\\matte\\Desktop\\Framework2\\results")
