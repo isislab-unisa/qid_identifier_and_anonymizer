@@ -1,17 +1,19 @@
-import pandas as pd
+import pandas as pd 
 import random
 import numpy as np
 import os
 import subprocess
 import sys
-from Anonymizer import AnonymizerClass as Anonymizer
+from Anonymizer import AnonymizerClass as Anonymizer 
 from MatchingCsv import MatchingClass as MatchingCsv
-from privacy_checker import PrivacyChecker as PrivacyChecker
+from privacy_checker import PrivacyChecker as PrivacyChecker 
 from SetIndex import SetIndexClass as SetIndex
 from DropNewId import DropNewIdClass as DropNewId
 from BestAnonymization import BestFinder as BestFinder
 import threading
 import time
+
+import datetime as dt
 
 
 
@@ -26,7 +28,7 @@ class AnonymizerThread (threading.Thread):
       print ("Starting " + self.name)
       anonymizeThread(self.path, self.field, self.type)
       print ("Exiting " + self.name)
-
+ 
 def anonymizeThread(path, field, type):
 	Anonymizer.anonymize(path, field, type)	
 	if type=="Year":
@@ -53,28 +55,6 @@ def anonymizeThread(path, field, type):
 
 
 
-
-if os.path.isfile("sesso,anno_nascita,comune_residenza.csv"):
-	os.remove("sesso,anno_nascita,comune_residenza.csv")
-if os.path.isfile("sesso,anno_nascita.csv"):
-	os.remove("sesso,anno_nascita.csv")
-if os.path.isfile("sesso,comune_residenza.csv"):
-	os.remove("sesso,comune_residenza.csv")
-if os.path.isfile("sesso.csv"):
-	os.remove("sesso.csv")
-if os.path.isfile("anno_nascita,comune_residenza.csv"):
-	os.remove("anno_nascita,comune_residenza.csv")
-if os.path.isfile("anno_nascita.csv"):
-	os.remove("anno_nascita.csv")
-if os.path.isfile("anno_nascita,sesso.csv"):
-	os.remove("anno_nascita,sesso.csv")
-if os.path.isfile("comune_residenza.csv"):
-	os.remove("comune_residenza.csv")
-if os.path.isfile("comune_residenza,sesso.csv"):
-	os.remove("comune_residenza,sesso.csv")
-if os.path.isfile("comune_residenza,anno_nascita.csv"):
-	os.remove("comune_residenza,anno_nascita.csv")
-
 os.system("python Singleton.py dataset.csv")
 if os.path.isfile("anno_nascita,comune_residenza,sesso.csv"):
 	os.rename(r'anno_nascita,comune_residenza,sesso.csv',r'sesso,anno_nascita,comune_residenza.csv')
@@ -82,10 +62,14 @@ if os.path.isfile("comune_residenza,anno_nascita,sesso.csv"):
 	os.rename(r'comune_residenza,anno_nascita,sesso.csv',r'sesso,anno_nascita,comune_residenza.csv')
 if os.path.isfile("anno_nascita,sesso,comune_residenza.csv"):
 	os.rename(r'anno_nascita,sesso,comune_residenza.csv',r'sesso,anno_nascita,comune_residenza.csv')
-if os.path.isfile("comune_residenza,sesso,anno_nascita.csv")
+if os.path.isfile("comune_residenza,sesso,anno_nascita.csv"):
 	os.rename(r'comune_residenza,sesso,anno_nascita.csv',r'sesso,anno_nascita,comune_residenza.csv')
 if os.path.isfile("sesso,comune_residenza,anno_nascita.csv"):
 	os.rename(r'sesso,comune_residenza,anno_nascita.csv',r'sesso,anno_nascita,comune_residenza.csv')								#GenereSingleton
+
+
+
+
 
 
 #SetIndex e PrivacyChecker
@@ -110,36 +94,21 @@ thread3=AnonymizerThread("Province All + Province Singleton","dataset_newIndex.c
 thread3.start()
 
 
+t = dt.datetime.now()
+t2= dt.datetime.now()
+Timer=1
+while Timer==1:
+	delta = dt.datetime.now()-t
+	delta2 = dt.datetime.now()-t2
+	if delta.seconds >= 300:
+		print("5 Min")
+        
+		t = dt.datetime.now()
+		
+	if delta2.seconds >=2880:
+		Timer=0
 thread1.join()
 thread2.join()
 thread3.join()
-#YearRange + Province
-
-thread4=AnonymizerThread("Year Range + Province","dataset_newIndexRange.csv", "comune_residenza", "Municipality")
-thread4.start()
 
 
-#YearCentroid + Province
-
-thread5=AnonymizerThread("Year Centroid + Province","dataset_newIndexCentroid.csv", "comune_residenza", "Municipality")
-thread5.start()
-
-#GenderAll + Province
-
-threadGenderAllProvince=AnonymizerThread("Gender All + Province","dataset_newIndexGenderAll.csv", "comune_residenza", "Municipality")
-threadGenderAllProvince.start()
-
-
-#GenderAll + Year
-thread7=AnonymizerThread("Gender All + Year","dataset_newIndexGenderAll.csv", "anno_nascita", "Year")
-thread7.start()
-
-
-threadGenderAllProvince.join()
-#GenderAll + Province + Year
-
-thread8=AnonymizerThread("Gender All + Province + Year ","dataset_newIndexGenderAllProvinceAll.csv", "anno_nascita", "Year")
-thread8.start()
-
-#Ranking
-BestFinder.finder("resultsQuality", "results")

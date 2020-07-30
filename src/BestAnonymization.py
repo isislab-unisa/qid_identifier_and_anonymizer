@@ -43,4 +43,3 @@ class BestFinder():
 		df.to_csv("RankingModifiedRows.csv", index=False)
 
 
-

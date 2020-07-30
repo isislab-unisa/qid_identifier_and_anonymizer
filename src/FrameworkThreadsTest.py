@@ -52,28 +52,12 @@ def anonymizeThread(path, field, type):
 		PrivacyChecker.privacychecker(path[:-4]+"ProvinceSingletonNoNewId.csv")
 
 
+def printit():
+	threading.Timer(300.0, printit).start()
+	print ("5 minutes")
+printit()
 
 
-if os.path.isfile("sesso,anno_nascita,comune_residenza.csv"):
-	os.remove("sesso,anno_nascita,comune_residenza.csv")
-if os.path.isfile("sesso,anno_nascita.csv"):
-	os.remove("sesso,anno_nascita.csv")
-if os.path.isfile("sesso,comune_residenza.csv"):
-	os.remove("sesso,comune_residenza.csv")
-if os.path.isfile("sesso.csv"):
-	os.remove("sesso.csv")
-if os.path.isfile("anno_nascita,comune_residenza.csv"):
-	os.remove("anno_nascita,comune_residenza.csv")
-if os.path.isfile("anno_nascita.csv"):
-	os.remove("anno_nascita.csv")
-if os.path.isfile("anno_nascita,sesso.csv"):
-	os.remove("anno_nascita,sesso.csv")
-if os.path.isfile("comune_residenza.csv"):
-	os.remove("comune_residenza.csv")
-if os.path.isfile("comune_residenza,sesso.csv"):
-	os.remove("comune_residenza,sesso.csv")
-if os.path.isfile("comune_residenza,anno_nascita.csv"):
-	os.remove("comune_residenza,anno_nascita.csv")
 
 os.system("python Singleton.py dataset.csv")
 if os.path.isfile("anno_nascita,comune_residenza,sesso.csv"):
@@ -82,7 +66,7 @@ if os.path.isfile("comune_residenza,anno_nascita,sesso.csv"):
 	os.rename(r'comune_residenza,anno_nascita,sesso.csv',r'sesso,anno_nascita,comune_residenza.csv')
 if os.path.isfile("anno_nascita,sesso,comune_residenza.csv"):
 	os.rename(r'anno_nascita,sesso,comune_residenza.csv',r'sesso,anno_nascita,comune_residenza.csv')
-if os.path.isfile("comune_residenza,sesso,anno_nascita.csv")
+if os.path.isfile("comune_residenza,sesso,anno_nascita.csv"):
 	os.rename(r'comune_residenza,sesso,anno_nascita.csv',r'sesso,anno_nascita,comune_residenza.csv')
 if os.path.isfile("sesso,comune_residenza,anno_nascita.csv"):
 	os.rename(r'sesso,comune_residenza,anno_nascita.csv',r'sesso,anno_nascita,comune_residenza.csv')								#GenereSingleton
