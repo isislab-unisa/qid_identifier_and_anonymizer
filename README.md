@@ -26,4 +26,45 @@ The framework can run in debug or no-debug mode, further more it can run in para
 In parallel mode it creates a thread for each anonymization technique.
 
 # Repository structure 
-https://github.com/isislab-unisa/qid_identifier_and_anonymizer/blob/master/Structure.png
+![Structure](https://github.com/isislab-unisa/qid_identifier_and_anonymizer/blob/master/Structure.png?raw=true)
+The core of the software is the main Framework:
+  1. at launch it allows you to choose the mode of use;
+  2. introduces a new dummy index to the dataset, to ensure that in subsequent operations, each record will correspond to itself and there can be no alterations. For example, when comparing the original dataset with the anonymized one, each tuple must match itself and there must be no disorder between them;
+  3. will launch privacy_checker on the original dataset.
+
+Then the anonymization cycle launched by the Framework begins, each anonymization cycle involves three phases:
+  1. anonymization;
+  2. comparison between original and anonymized dataset;
+  3. privacy control of the new dataset.
+
+The anonymization phase is managed by the Anonymizer.
+
+![Anonymizer] (https://www.overleaf.com/project/5f3e83059ad56800017e796e/file/5f58b23ebf005a0001cb211d)
+
+It extends an abstract class, this because at any time the anonymization process can be replaced according to your needs.
+It takes three arguments as input, the path of the file to be anonymized, on which field of the dataset to operate and which Type of data represents the field. The dataset field refers to which attribute to anonymize. The type instead refers to which data the field represents (gender, year, municipality). This implementation choice serves to make the process as abstract as possible, to make sure that whatever the name of the field, through the type argument, the anonymizer will know how to act.
+If the attribute does not fall into these 3 categories, then the anonymizer will indicate to the user that the type is not yet supported.
+After this comparison, the anonymizer calls the classes in charge of the corresponding anonymization. Therefore the role of the anonymizer is to sort out requests for anonymization.
+In detail, there are 6 classes used for the anonymization of the dataset.
+  1. genderAll: implements a global approach on the dataset by modifying the gender field with an empty box, which is equivalent to replacing the attribute with a generic one;
+  2. genderSingleton: implements a local approach on the dataset by modifying the sex field with an empty box only in the lines representing singletons;
+  3. provinceAll: implements a global approach on the dataset by modifying the municipality field with the generalization of the municipality to which it belongs. If it has already been anonymized, or if it is in the form of a region, the framework will move up the anonymization hierarchy by replacing the region with the nation and so on;
+  4. provinceSingleton: implements a local approach on the dataset by modifying the municipality5 field with the generalization of the municipality but only in the lines that identify singletons;
+  5. yearRange: replaces the year or date with a range of years. To do this, divide the years into groups of k elements, then take the minimum and maximum value of the groups to create the range;
+  6. yearCentroid: replaces the year or date with the average range value.
+
+For the targeted action of the anonymization technique on singletons, we use a slightly modified version of the PrivacyChecker, which identifies the singletons and reports them in a new csv file. The framework scrolls the latter and identifies the exact position of the corresponding row in the original dataset, modifying only the field we want to anonymize.
+Once the anonymization process is complete, the quality control process begins, implemented by MatchingCsv. Quality is measured as the number of modified (suppressed + generalized) tuples. It is done by comparing the original dataset with the anonymized one, line by line. The certainty that the corresponding rows are being compared is given to us by the fact that we have previously entered a dummy ID that uniquely identifies a tuple. The process takes place by comparing the values contained in it field by field. At the end of the comparison, the number of modified and suppressed lines are printed in a log file.
+The last step of the anonymization cycle is the one that involves privacy control, measured as the number of singletons detected within the dataset. The process takes place thanks to the PrivacyChecker. It is used for the election of the best QID, for the calculation of the number of singletons, percentage of singletons and calculation of distinct values.
+The anonymization process takes place both by implementing it on one field at a time, and in pairs and finally on all 3 attributes together. When the anonymization process is concluded for each of the aforementioned combinations, we move on to the analysis of all the anonymizations carried out with their relative results (number of singletons, modified and deleted rows).
+In charge of this is BestAnonymization which creates csv files containing a table where the various anonymization techniques are ordered both by the number of singletons, and by the number of modified rows, so that the user has at first impact idea of ​​which technique affected the quality of the dataset the least and which the loss of privacy.
+
+
+
+
+
+
+
+
+
+
