@@ -57,11 +57,11 @@ The last step of the anonymization cycle is the one that involves privacy contro
 The anonymization process takes place both by implementing it on one field at a time, and in pairs and finally on all 3 attributes together. When the anonymization process is concluded for each of the aforementioned combinations, we move on to the analysis of all the anonymizations carried out with their relative results (number of singletons, modified and deleted rows).
 In charge of this is BestAnonymization which creates csv files containing a table where the various anonymization techniques are ordered both by the number of singletons, and by the number of modified rows, so that the user has at first impact idea of ​​which technique affected the quality of the dataset the least and which the loss of privacy.
 
-#Modes of use
+# Modes of use
   1. debug: provides for the screen printing of each beginning and end of phase, so that the user can realize what the framework is doing and, in case of errors or slowdowns, know in which part of the program to intervene. The debug parameter is required and has a value of true or false;
   2.  Singleton municipality: since after numerous tests for various regions, I have identified that in most cases the anonymization of the municipality on singletons is the most efficient, the framework provides the option to launch the anonymization process only for this attribute, so such as to have a quick response avoiding all other techniques;   3. multithreading: in this mode of use, a thread is created for each anonymization process. The thread performs the functions of anonymization, quality control and privacy control in parallel to the other techniques. Through a join function, the processes in which multiple fields are anonymized wait for the previous step (anonymization of the single field) to finish. This mode greatly speeds up all processes.
   
-#Dependencies
+# Dependencies
 
 The framework is tested to work on Python 3.7.
 
