@@ -59,7 +59,8 @@ In charge of this is BestAnonymization which creates csv files containing a tabl
 
 # Modes of use
   1. debug: provides for the screen printing of each beginning and end of phase, so that the user can realize what the framework is doing and, in case of errors or slowdowns, know in which part of the program to intervene. The debug parameter is required and has a value of true or false;
-  2.  Singleton municipality: since after numerous tests for various regions, I have identified that in most cases the anonymization of the municipality on singletons is the most efficient, the framework provides the option to launch the anonymization process only for this attribute, so such as to have a quick response avoiding all other techniques;   3. multithreading: in this mode of use, a thread is created for each anonymization process. The thread performs the functions of anonymization, quality control and privacy control in parallel to the other techniques. Through a join function, the processes in which multiple fields are anonymized wait for the previous step (anonymization of the single field) to finish. This mode greatly speeds up all processes.
+  2.  Singleton municipality: since after numerous tests for various regions, I have identified that in most cases the anonymization of the municipality on singletons is the most efficient, the framework provides the option to launch the anonymization process only for this attribute, so such as to have a quick response avoiding all other techniques;
+  3. multithreading: in this mode of use, a thread is created for each anonymization process. The thread performs the functions of anonymization, quality control and privacy control in parallel to the other techniques. Through a join function, the processes in which multiple fields are anonymized wait for the previous step (anonymization of the single field) to finish. This mode greatly speeds up all processes.
   
 # Dependencies
 
