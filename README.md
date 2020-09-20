@@ -26,3 +26,4 @@ The framework can run in debug or no-debug mode, further more it can run in para
 In parallel mode it creates a thread for each anonymization technique.
 
 # Repository structure 
+https://github.com/isislab-unisa/qid_identifier_and_anonymizer/blob/master/Structure.png
